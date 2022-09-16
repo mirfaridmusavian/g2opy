@@ -23,6 +23,7 @@ sudo apt-get install -y libsuitesparse-dev libeigen3-dev
 ```
 git clone https://github.com/mirfaridmusavian/g2opy.git
 cd g2opy
+git checkout modified
 mkdir build
 cd build
 cmake ..
