@@ -14,11 +14,14 @@ In the contrib folder, I collected some useful 3rd-party C++ code related to g2o
 ## Requirements
 * [C++ requirements](#g2oRequirements).   
 ([pybind11](https://github.com/pybind/pybind11) is also required, but it's built in this repository, you don't need to install) 
+```
+sudo apt-get install -y libsuitesparse-dev libeigen3-dev
+```
 
 
 ## Installation
 ```
-git clone https://github.com/uoip/g2opy.git
+git clone https://github.com/mirfaridmusavian/g2opy.git
 cd g2opy
 mkdir build
 cd build
@@ -27,7 +30,7 @@ make -j8
 cd ..
 python setup.py install
 ```
-Tested under Ubuntu 16.04, Python 3.6+.
+Tested under Ubuntu 16.04,(20.4 and 22.04), Python 3.6+.
 
 
 ## Get Started
