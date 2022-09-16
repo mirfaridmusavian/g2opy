@@ -16,11 +16,23 @@
 namespace py = pybind11;
 using namespace pybind11::literals;
 
-
 namespace g2o {
+
+class Flag
+{
+public:
+	Flag(bool init=false):value(init){}
+	bool value;
+};
 
 void declareSparseOptimizer(py::module & m) {
     using CLS = SparseOptimizer;
+
+    py::class_<Flag>(m, "Flag")
+        .def(py::init<>())
+        .def(py::init<bool>(),"init"_a)
+        .def_readwrite("value", &Flag::value);
+
 
     py::class_<CLS, OptimizableGraph>(m, "SparseOptimizer")
         // ATTENTION: _solver & _statistics is own by SparseOptimizer and will be
@@ -84,8 +96,10 @@ void declareSparseOptimizer(py::module & m) {
         .def("set_verbose", &CLS::setVerbose,
                 "verbose"_a)                                                                                  // -> void
 
-        .def("set_force_stop_flag", &CLS::setForceStopFlag,
+        .def("set_force_stop_flag_old", &CLS::setForceStopFlag,
                 "flag"_a)                                                                                   // -> void
+	.def("set_force_stop_flag", [](CLS& optimizer, Flag* flag){ optimizer.setForceStopFlag(&(flag->value)); }, 
+				      py::keep_alive<1, 2>())
         .def("force_stop_flag", &CLS::forceStopFlag)                                                             // -> bool*
         .def("terminate", &CLS::terminate)                                                                                   // -> bool
 
